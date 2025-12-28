@@ -1,0 +1,75 @@
+.timer-focus-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  text-align: center;
+}
+
+.analog-clock {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 90vmin;
+  height: 90vmin;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  opacity: 0.1;
+}
+
+.clock-face {
+  stroke: #cddc39;
+  stroke-width: 2;
+  fill: none;
+}
+
+.minute-hand, .second-hand {
+  stroke: #cddc39;
+  stroke-linecap: round;
+  transform-origin: center;
+  transition: transform 0.3s cubic-bezier(0.4, 2, 0.5, 1); /* A bouncy transition */
+}
+
+.minute-hand {
+  stroke-width: 6;
+}
+
+.second-hand {
+  stroke-width: 3;
+}
+
+.timer-display {
+  font-size: 18vw;
+  font-weight: bold;
+  line-height: 1;
+  margin: 0;
+  color: #cddc39;
+  text-shadow: 0 0 20px rgba(205, 220, 57, 0.5);
+  z-index: 1;
+}
+
+.task-display {
+  font-size: 2.5vw;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 2rem;
+  max-width: 80%;
+  z-index: 1;
+}
+
+.stop-button {
+  margin-top: 3rem;
+  padding: 1rem 2rem;
+  font-size: 1.5rem;
+  background-color: #333;
+  border: 1px solid #555;
+  transition: all 0.3s ease;
+  z-index: 1;
+}
+
+.stop-button:hover {
+  background-color: #c62828;
+  border-color: #d32f2f;
+  transform: scale(1.05);
+}

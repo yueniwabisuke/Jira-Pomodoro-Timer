@@ -1,0 +1,57 @@
+.settings-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.settings-container form {
+  width: 100%;
+  max-width: 500px;
+  padding: 2rem;
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  border: 1px solid #444;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  text-align: left;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: 1px solid #555;
+  background-color: #333;
+  color: #fff;
+}
+
+.form-group a {
+  display: block;
+  text-align: right;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  color: #aaa;
+}
+
+.settings-container button {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: #646cff;
+  color: white;
+}
+
+.settings-container button:hover {
+  background-color: #535bf2;
+}
