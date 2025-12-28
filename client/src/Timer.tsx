@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Issue } from '../App';
+import { Issue } from './types'; // Corrected import path
 import axios, { isAxiosError } from 'axios';
 
 interface Props {

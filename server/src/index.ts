@@ -1,3 +1,4 @@
+import 'dotenv/config'; // Load environment variables from .env file
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import axios, { isAxiosError } from 'axios';
@@ -6,7 +7,11 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 // --- Middlewares ---
-app.use(cors());
+app.use(cors({
+  origin: process.env.CORS_ORIGIN || 'http://localhost:5173', // Allow specific origin or default to local development
+  methods: ['GET', 'POST'], // Allow only specific methods
+  allowedHeaders: ['Content-Type', 'x-jira-domain', 'x-jira-email', 'x-jira-token'], // Allow custom headers
+}));
 app.use(express.json());
 
 // --- Helper function to create a Jira API client per request ---
