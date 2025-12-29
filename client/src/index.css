@@ -103,3 +103,52 @@ button:focus-visible {
   width: 20px;
   height: 20px;
 }
+
+/* Updated styling for Pomodoro duration setting */
+.pomodoro-duration-group {
+  display: flex;
+  flex-direction: column; /* Arrange children vertically */
+  align-items: center; /* Center items horizontally */
+  margin: 1rem 0;
+  font-size: 1.1em;
+}
+
+.pomodoro-duration-input-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0.5rem; /* Space between input row and button */
+}
+
+.pomodoro-duration-group label {
+  margin-right: 10px;
+  white-space: nowrap;
+}
+
+.pomodoro-duration-group input {
+  font-size: 1.1em;
+  padding: 5px 8px;
+  width: 70px;
+  text-align: center;
+  border: 1px solid #646cff;
+  border-radius: 4px;
+  background-color: #333;
+  color: white;
+}
+
+.pomodoro-duration-group input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(100, 108, 255, 0.5);
+}
+
+.reset-pomodoro-button {
+  margin-top: 0.5rem; /* Space from the input row */
+  padding: 0.5em 1em; /* Adjust padding */
+  font-size: 0.9em; /* Slightly smaller font for the button */
+  background-color: #555;
+  border-color: #777;
+}
+
+.reset-pomodoro-button:hover {
+  background-color: #666;
+  border-color: #888;
+}

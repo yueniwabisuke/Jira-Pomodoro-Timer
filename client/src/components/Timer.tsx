@@ -7,11 +7,11 @@ import './Timer.css';
 interface Props {
   activeIssue: Issue | null;
   onTimerStop: () => void;
+  pomodoroDurationMinutes: number; // New prop for configurable duration
 }
 
-const POMODORO_DURATION = 25 * 60; // 25 minutes in seconds
-
-const Timer: React.FC<Props> = ({ activeIssue, onTimerStop }) => {
+const Timer: React.FC<Props> = ({ activeIssue, onTimerStop, pomodoroDurationMinutes }) => {
+  const POMODORO_DURATION = pomodoroDurationMinutes * 60; // Use prop for duration
   const [time, setTime] = useState(POMODORO_DURATION);
   const [secondHandAngle, setSecondHandAngle] = useState(0);
   const [minuteHandAngle, setMinuteHandAngle] = useState(0);
@@ -21,13 +21,13 @@ const Timer: React.FC<Props> = ({ activeIssue, onTimerStop }) => {
     if (activeIssue) {
       setSecondHandAngle(0);
       setMinuteHandAngle(0);
-      setTime(POMODORO_DURATION);
+      setTime(POMODORO_DURATION); // Set time based on dynamic duration
       startTimer();
     }
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [activeIssue]);
+  }, [activeIssue, POMODORO_DURATION]); // Add POMODORO_DURATION to dependency array
 
   const startTimer = () => {
     if (intervalRef.current) clearInterval(intervalRef.current);
@@ -43,7 +43,7 @@ const Timer: React.FC<Props> = ({ activeIssue, onTimerStop }) => {
         const totalSecondsSpent = POMODORO_DURATION - newTime;
         const secondsAngle = (totalSecondsSpent % 60) * 6;
         setSecondHandAngle(secondsAngle);
-        const minuteAngle = (totalSecondsSpent / POMODORO_DURATION) * 360;
+        const minuteAngle = (totalSecondsSpent / POMODORO_DURATION) * 360; // Use dynamic duration
         setMinuteHandAngle(minuteAngle);
         
         return newTime;

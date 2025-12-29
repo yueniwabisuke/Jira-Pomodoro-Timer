@@ -11,9 +11,15 @@ import RefreshIcon from './components/icons/RefreshIcon';
 import SettingsIcon from './components/icons/SettingsIcon';
 
 const JIRA_AUTH_STORAGE_KEY = 'jiraPomodoroAuth';
+const POMODORO_DURATION_STORAGE_KEY = 'pomodoroDurationMinutes';
+const DEFAULT_POMODORO_DURATION = 25; // Define default duration here
 
 function App() {
   const [jiraAuth, setJiraAuth] = useState<JiraAuth | null>(null);
+  const [pomodoroDurationMinutes, setPomodoroDurationMinutes] = useState<number>(() => {
+    const savedDuration = localStorage.getItem(POMODORO_DURATION_STORAGE_KEY);
+    return savedDuration ? parseInt(savedDuration, 10) : DEFAULT_POMODORO_DURATION;
+  });
   const [issues, setIssues] = useState<Issue[]>([]);
   const [activeIssue, setActiveIssue] = useState<Issue | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -39,6 +45,20 @@ function App() {
     setJiraAuth(auth);
     setAuthHeaders(auth);
     localStorage.setItem(JIRA_AUTH_STORAGE_KEY, JSON.stringify(auth));
+  };
+
+  const handleSavePomodoroDuration = (duration: number) => {
+    // Ensure duration is a valid number and at least 1
+    const validatedDuration = Math.max(1, Math.floor(duration));
+    if (validatedDuration !== duration) {
+        alert('Pomodoro duration must be a positive integer.');
+    }
+    setPomodoroDurationMinutes(validatedDuration);
+    localStorage.setItem(POMODORO_DURATION_STORAGE_KEY, validatedDuration.toString());
+  };
+
+  const handleResetPomodoroDuration = () => {
+    handleSavePomodoroDuration(DEFAULT_POMODORO_DURATION);
   };
 
   const handleClearAuth = () => {
@@ -71,7 +91,7 @@ function App() {
   const handleTimerStop = () => setActiveIssue(null);
 
   if (activeIssue && jiraAuth) {
-    return <Timer activeIssue={activeIssue} onTimerStop={handleTimerStop} />;
+    return <Timer activeIssue={activeIssue} onTimerStop={handleTimerStop} pomodoroDurationMinutes={pomodoroDurationMinutes} />;
   }
 
   if (!jiraAuth) {
@@ -105,6 +125,25 @@ function App() {
               </button>
             </div>
             
+            <hr style={{ margin: '2rem 0' }}/>
+
+            <div className="pomodoro-duration-group">
+                <div className="pomodoro-duration-input-row">
+                    <label htmlFor="pomodoro-duration-input">Pomodoro Duration (minutes):</label>
+                    <input
+                        id="pomodoro-duration-input"
+                        type="number"
+                        value={pomodoroDurationMinutes}
+                        onChange={(e) => handleSavePomodoroDuration(parseInt(e.target.value, 10))}
+                        min="1"
+                        max="60"
+                        step="1"
+                    />
+                </div>
+                <button onClick={handleResetPomodoroDuration} className="action-button reset-pomodoro-button">
+                    Reset to Default (25 min)
+                </button>
+            </div>
             <hr style={{ margin: '2rem 0' }}/>
             <IssueList issues={issues} onStartTimer={handleStartTimer} isLoading={isLoading} />
           </>
